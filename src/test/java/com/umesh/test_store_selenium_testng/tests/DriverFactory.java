@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tests;
+package com.umesh.test_store_selenium_testng.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.net.MalformedURLException;
@@ -14,8 +14,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import util.Config;
-import util.Constants;
+import com.umesh.test_store_selenium_testng.util.Config;
+import com.umesh.test_store_selenium_testng.util.Constants;
 
 /**
  *

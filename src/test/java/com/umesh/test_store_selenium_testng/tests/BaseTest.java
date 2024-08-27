@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tests;
+package com.umesh.test_store_selenium_testng.tests;
 
 /**
  *
@@ -33,8 +33,8 @@ import org.testng.annotations.Parameters;
 import com.google.common.util.concurrent.Uninterruptibles;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import util.Config;
-import util.Constants;
+import com.umesh.test_store_selenium_testng.util.Config;
+import com.umesh.test_store_selenium_testng.util.Constants;
 
 @Listeners({ TestListener.class })
 public abstract class BaseTest {

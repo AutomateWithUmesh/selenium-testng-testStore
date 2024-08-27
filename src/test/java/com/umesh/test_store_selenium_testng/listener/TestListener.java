@@ -14,7 +14,7 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 
-import util.Constants;
+import com.umesh.test_store_selenium_testng.util.Constants;
 
 public class TestListener implements ITestListener {
 
