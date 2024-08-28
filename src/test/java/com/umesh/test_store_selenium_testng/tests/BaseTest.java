@@ -8,90 +8,89 @@ package com.umesh.test_store_selenium_testng.tests;
  *
  * @author umesh
  */
-import listener.TestListener;
+import com.umesh.test_store_selenium_testng.pages.DashboardPage;
+import com.umesh.test_store_selenium_testng.pages.LoginPage;
+import com.umesh.test_store_selenium_testng.tests.model.Credentials;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
-
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Parameters;
-
-import com.google.common.util.concurrent.Uninterruptibles;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 import com.umesh.test_store_selenium_testng.util.Config;
 import com.umesh.test_store_selenium_testng.util.Constants;
+import com.umesh.test_store_selenium_testng.util.JsonUtil;
+import org.testng.Assert;
+import org.testng.SkipException;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
-@Listeners({ TestListener.class })
 public abstract class BaseTest {
 
-	private static final Logger log = LoggerFactory.getLogger(AbstractTest.class);
+    protected static final Logger log = LoggerFactory.getLogger(BaseTest.class);
 
-	protected WebDriver driver;
+    protected boolean isLoginSuccessful = false;
 
-	@BeforeSuite
-	public void setupConfig() {
-		Config.initialize();
-	}
+    protected WebDriver driver;
+    private Credentials credentials;
+    private DashboardPage dashboardPage;
+    private LoginPage loginPage;
 
-	@BeforeTest
-	public void setDriver(ITestContext ctx) throws MalformedURLException {
-		driver = DriverFactory.getDriver();
-	}
-	ctx.setAttribute(Constants., ctx);
+    @BeforeSuite
+    public void setupConfig() {
+        Config.initialize();
+    }
 
-	private WebDriver getRemoteDriver() throws MalformedURLException {
-		/*
-		 * // http://localhost:4444/wd/hub Capabilities capabilities; if
-		 * (System.getProperty("browser").equalsIgnoreCase("chrome")) {
-		 * //if(browser.equalsIgnoreCase("chrome")) { use when we want to run test based
-		 * on browser value given in xml. capabilities = new ChromeOptions(); } else {
-		 * capabilities = new FirefoxOptions(); } return new RemoteWebDriver(new
-		 * URL("http://localhost:4444/wd/hub"), capabilities);
-		 */
-		Capabilities capabilities = new ChromeOptions();
-		if (Constants.FIREFOX.equalsIgnoreCase(Config.get(Constants.BROWSER))) {
-			capabilities = new FirefoxOptions();
-		}
-		String urlFormat = Config.get(Constants.GRID_URL_FORMAT);
-		String hubHost = Config.get(Constants.GRID_HUB_HOST);
-		String url = String.format(urlFormat, hubHost);
-		log.info("grid url: {}", url);
-		return new RemoteWebDriver(new URL(url), capabilities);
-	}
+    @BeforeTest
+    public void setupDriver(ITestContext ctx) throws MalformedURLException {
+        driver = DriverFactory.getDriver();
+        ctx.setAttribute(Constants.DRIVER, driver);
+    }
 
-	private WebDriver getLocalDriver() {
-		// WebDriverManager.chromedriver().clearDriverCache().setup();
-//		WebDriverManager.chromedriver().setup();
-		WebDriverManager.firefoxdriver().setup();
-//		this.driver = new ChromeDriver();
-		this.driver = new FirefoxDriver();
-		this.driver.manage().window().maximize();
-		return this.driver;
-	}
+    @BeforeClass
+    @Parameters({"credentialsFilePath"})
+    public void loginToApplication(String credentialsFilePath) {
+        credentials = JsonUtil.getTestData(credentialsFilePath, Credentials.class);
+        loginPage = new LoginPage(driver);
+        dashboardPage = new DashboardPage(driver);
+        login();
+    }
 
-	@AfterTest
-	public void quitDriver() {
-		this.driver.quit();
-	}
+    @AfterTest(alwaysRun = true)
+    public void quitDriver() {
+        DriverFactory.quitDriver();
+    }
 
-	// to watch selenium grid performing action, lets add delays after each method
-	/*
-	 * @AfterMethod public void sleep() {
-	 * Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(5)); }
-	 */
+    private void login() {
+        String email;
+        String password;
+        email = credentials.email();
+        password = credentials.password();
+        try {
+            loginPage.goTo(Config.get(Constants.TEST_STORE_URL));
+            Assert.assertTrue(loginPage.isDisplayed());
+            loginPage.login(email, password);
+            Assert.assertTrue(dashboardPage.getHeaderComponent().isDisplayed());
+            isLoginSuccessful = true;
+        } catch (AssertionError | Exception e) {
+            log.error("Login failed: {}", e.getMessage());
+            throw new RuntimeException("Login failed: {}" + e.getMessage(), e);
+        }
+    }
+
+    @AfterClass
+    public void signoutFromApplication() {
+        if (isLoginSuccessful) {
+            log.info("Running the sign out");
+            dashboardPage.getHeaderComponent().signout();
+            Assert.assertTrue(loginPage.isDisplayed());
+            log.info("Sign out completed");
+        } else {
+            log.info("Skipping the sign out as login failed");
+            throw new SkipException("Skipping the sign out as login failed");
+        }
+    }
 }

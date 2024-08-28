@@ -19,6 +19,6 @@ public class Constants {
     public static final String FIREFOX = "firefox";
     public static final String DRIVER = "driver";
 
-    public static final String FLIGHT_RESERVATION_URL = "flightReservation.url";
+    public static final String TEST_STORE_URL = "test.store.url";
 
 }

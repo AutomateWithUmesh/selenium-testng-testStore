@@ -24,5 +24,5 @@ public abstract class BasePage {
 		PageFactory.initElements(driver, this);
 	}
 
-	public abstract boolean isAt();
+	public abstract boolean isDisplayed();
 }
