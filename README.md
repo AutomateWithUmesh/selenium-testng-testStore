@@ -1,91 +1,47 @@
 ```mermaid
-classDiagram
-    LoginPage --> DashboardPage
-    DashboardPage --> HeaderPage
-    DashboardPage --> MenuPage
-    DashboardPage --> FooterPage
-    HeaderPage --> SigninPage
-    HeaderPage --> ViewAccountPage
-    HeaderPage --> CartPage
-    MenuPage --> ClothesPage
-    MenuPage --> AccessoriesPage
-    MenuPage --> ArtPage
-    ClothesPage --> MenPage
-    ClothesPage --> WomenPage
-    AccessoriesPage --> StationaryPage
-    AccessoriesPage --> HomeAccessoriesPage
+graph TD
+    A[GlobalHeader]
+    B[GlobalFooter]
+    C[GlobalMenu]
 
-    class LoginPage {
-        +enterUsername()
-        +enterPassword()
-        +clickSignInButton()
-    }
+    A --> D[DashboardPage]
+    B --> D
+    C --> D
 
-    class DashboardPage {
-        +getHeader()
-        +getMenu()
-        +getFooter()
-    }
+    A --> E[ClothesPage]
+    B --> E
+    C --> E
 
-    class HeaderPage {
-        +clickSigninButton()
-        +clickViewAccount()
-        +clickCart()
-    }
+    A --> F[ArtPage]
+    B --> F
+    C --> F
 
-    class SigninPage {
-        +enterUsername()
-        +enterPassword()
-        +submitLogin()
-    }
+    A --> G[AccessoriesPage]
+    B --> G
+    C --> G
 
-    class ViewAccountPage {
-        +viewAccountDetails()
-        +editAccountDetails()
-    }
+    A --> H[MenPage]
+    B --> H
+    C --> H
 
-    class CartPage {
-        +viewCartItems()
-        +checkout()
-    }
+    A --> I[WomenPage]
+    B --> I
+    C --> I
 
-    class MenuPage {
-        +goToClothes()
-        +goToAccessories()
-        +goToArt()
-    }
+    A --> J[StationaryPage]
+    B --> J
+    C --> J
 
-    class ClothesPage {
-        +goToMen()
-        +goToWomen()
-    }
+    A --> K[HomeAccessoriesPage]
+    B --> K
+    C --> K
 
-    class AccessoriesPage {
-        +goToStationary()
-        +goToHomeAccessories()
-    }
+    D --> E[ClothesPage]
+    D --> F[ArtPage]
+    D --> G[AccessoriesPage]
 
-    class ArtPage {
-        +viewArtCollection()
-    }
+    E --> H[MenPage]
+    E --> I[WomenPage]
 
-    class MenPage {
-        +viewMenTshirts()
-        +viewMenShoes()
-    }
-
-    class WomenPage {
-        +viewWomenDresses()
-        +viewWomenShoes()
-    }
-
-    class StationaryPage {
-        +viewPens()
-        +viewNotebooks()
-    }
-
-    class HomeAccessoriesPage {
-        +viewCushions()
-        +viewLamps()
-    }
-
+    G --> J[StationaryPage]
+    G --> K[HomeAccessoriesPage]

@@ -4,10 +4,18 @@
  */
 package com.umesh.test_store_selenium_testng.pages;
 
+import org.openqa.selenium.WebDriver;
+
 /**
  *
  * @author umesh
  */
 public class GlobalFooter {
-    
+
+    private WebDriver driver;
+
+    public GlobalFooter(WebDriver driver) {
+        this.driver = driver;
+    }
+
 }

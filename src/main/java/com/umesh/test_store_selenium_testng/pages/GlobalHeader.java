@@ -14,26 +14,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  *
  * @author umesh
  */
-public class GlobalHeader extends BasePage{
-    
-    @FindBy(className = "account")
-    private WebElement displayName;
-    
+public class GlobalHeader {
+
     @FindBy(css = ".logout.hidden-sm-down")
     private WebElement signoutButton;
-
-    public GlobalHeader(WebDriver driver) {
-        super(driver);
-    }
-
-    @Override
-    public boolean isDisplayed() {
-        wait.until(ExpectedConditions.visibilityOf(displayName));
-        return displayName.isDisplayed();
-    }
     
-    public void signout() {
+    public GlobalHeader(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+    }
+
+    
+    public void signout(){
         signoutButton.click();
     }
-    
 }

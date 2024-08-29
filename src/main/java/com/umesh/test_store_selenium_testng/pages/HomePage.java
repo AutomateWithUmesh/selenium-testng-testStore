@@ -11,18 +11,23 @@ import org.openqa.selenium.support.PageFactory;
  *
  * @author umesh
  */
-public class DashboardPage {
+public class HomePage {
 
     private WebDriver driver;
-    private GlobalHeader headerComponent;
 
-    public DashboardPage(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         this.driver = driver;
-        headerComponent = PageFactory.initElements(this.driver, GlobalHeader.class);
     }
 
-    public GlobalHeader getHeaderComponent() {
-        return headerComponent;
+    public GlobalHeader getGlobalHeader() {
+        return new GlobalHeader(this.driver);
     }
 
+    public GlobalFooter getGlobalFooter() {
+        return new GlobalFooter(this.driver);
+    }
+
+    public GlobalMenu getGlobalMenu() {
+        return new GlobalMenu(this.driver);
+    }
 }

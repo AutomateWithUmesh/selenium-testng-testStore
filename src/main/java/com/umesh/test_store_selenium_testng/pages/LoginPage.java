@@ -16,6 +16,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  */
 public class LoginPage extends BasePage {
     
+    private WebDriver driver;
+    
     @FindBy(className = "user-info")
     private WebElement signin;
 
@@ -30,6 +32,7 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     @Override
@@ -39,14 +42,15 @@ public class LoginPage extends BasePage {
     }
     
     public void goTo(String url) {
-        driver.get(url);
+        this.driver.get(url);
     }
     
-    public void login(String emailAddress, String userPassword) {
+    public HomePage login(String emailAddress, String userPassword) {
         signin.click();
         email.sendKeys(emailAddress);
         password.sendKeys(userPassword);
         signinButton.click();
+        return new HomePage(this.driver);
     }
 
 }

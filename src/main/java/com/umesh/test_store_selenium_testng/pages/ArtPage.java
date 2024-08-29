@@ -4,10 +4,21 @@
  */
 package com.umesh.test_store_selenium_testng.pages;
 
+import org.openqa.selenium.WebDriver;
+
 /**
  *
  * @author umesh
  */
-public class ArtPage {
+public class ArtPage extends BasePage{
+
+    public ArtPage(WebDriver driver) {
+        super(driver);
+    }
+
+    @Override
+    public boolean isDisplayed() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
