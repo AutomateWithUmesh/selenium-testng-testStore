@@ -27,6 +27,8 @@ import com.umesh.test_store_selenium_testng.util.Constants;
 import com.umesh.test_store_selenium_testng.util.JsonUtil;
 import org.testng.Assert;
 import org.testng.SkipException;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
 public abstract class BaseTest {
@@ -48,7 +50,7 @@ public abstract class BaseTest {
         Config.initialize();
     }
 
-    @BeforeTest
+    @BeforeClass
     @Parameters({"credentialsFilePath"})
     public void setupDriver(ITestContext ctx, String credentialsFilePath) throws MalformedURLException {
         driver = DriverFactory.getDriver();
@@ -64,7 +66,7 @@ public abstract class BaseTest {
         globalMenu = homePage.getGlobalMenu();
     }
      
-    @AfterTest(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
     public void quitDriver() {
         if (isLoginSuccessful) {
             log.info("Running the sign out");
