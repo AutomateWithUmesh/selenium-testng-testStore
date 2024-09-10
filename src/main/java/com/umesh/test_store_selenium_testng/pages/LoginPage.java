@@ -74,11 +74,11 @@ public class LoginPage extends BasePage {
      * @param userPassword The password to enter.
      * @return A new instance of the HomePage class after login.
      */
-    public HomePage login(String emailAddress, String userPassword) {
+    public void login(String emailAddress, String userPassword) {
         signin.click();
         email.sendKeys(emailAddress);
         password.sendKeys(userPassword);
         signinButton.click();
-        return new HomePage(this.driver);
+        //return new HomePage(this.driver);
     }
 }

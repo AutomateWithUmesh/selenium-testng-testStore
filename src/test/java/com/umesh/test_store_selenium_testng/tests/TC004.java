@@ -10,7 +10,10 @@ import com.umesh.test_store_selenium_testng.util.Constants;
 import com.umesh.test_store_selenium_testng.util.JsonUtil;
 import org.testng.Assert;
 import org.testng.SkipException;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 /**
  * Test class for TC001.
@@ -18,7 +21,7 @@ import org.testng.annotations.*;
  *
  * @author Umesh Deshmukh
  */
-public class TC001 extends BaseTest {
+public class TC004 extends BaseTest {
     private Credentials credentials;
     private TC001_Test_Data tc001_test_data;
 
@@ -26,6 +29,7 @@ public class TC001 extends BaseTest {
     private HomePage homePage;
     private GlobalMenu globalMenu;
     private GlobalHeader globalHeader;
+    private ClothesPage clothesPage;
 
     /**
      * Loads test data from the specified path before each method.
@@ -42,6 +46,7 @@ public class TC001 extends BaseTest {
         homePage = PageFactoryManager.getHomePage(driver);
         globalMenu = PageFactoryManager.getGlobalMenu(driver);
         globalHeader = PageFactoryManager.getGlobalHeader(driver);
+        clothesPage = PageFactoryManager.getClothesPage(driver);
         log.info("credentials in before test " + credentials.email());
     }
 
@@ -50,18 +55,17 @@ public class TC001 extends BaseTest {
      * Validates the search functionality on the global menu.
      */
     @Test
-    public void tc001() {
+    public void tc004() {
         loginPage.goTo(Config.get(Constants.TEST_STORE_URL));
         loginPage.login(credentials.email(), credentials.password());
         // Assert that the global menu is displayed
         Assert.assertTrue(globalMenu.isDisplayed());
         isLoginSuccessful = true; // Set flag indicating successful login
         log.info("credentials in test " + credentials.email());
-        TestListener.getTest().log(Status.INFO, "This is first statement in the test case 01");
+        TestListener.getTest().log(Status.INFO, "This is first statement in the test case 04");
         log.info("Logger statement");
-        // Perform search operation and validate results
-        globalMenu.searchItem(tc001_test_data.searchText());
-        Assert.assertTrue(globalMenu.searchResultDisplayed());
+        clothesPage = globalMenu.goToClothesPage();
+        Assert.assertFalse(clothesPage.isDisplayed(), "Clothes Page is not displayed");
     }
 
     @AfterTest

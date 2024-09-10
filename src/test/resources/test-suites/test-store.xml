@@ -1,33 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this template
--->
-
-
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="test-store" parallel="tests" thread-count="2">
+<suite name="test-store" parallel="tests" thread-count="1">
     <listeners>
         <listener class-name = "com.umesh.test_store_selenium_testng.listener.TestListener"/>
     </listeners>
     <parameter name = "credentialsFilePath" value = "test-data/credentials.json" />
     <test name="tc001_test">
-        <parameter name = "credentialsFilePath" value = "test-data/credentials.json" />
-        <parameter name="testDataPath" value="test-data/tc001.json" />
+        <parameter name = "testDataPath" value="test-data/tc001.json" />
         <classes>
             <class name="com.umesh.test_store_selenium_testng.tests.TC001"/>
         </classes>
     </test>
-    <test name="tc002_test">
+    <test name="tc004_test">
+        <parameter name = "testDataPath" value="test-data/tc004.json" />
         <classes>
-            <class name="com.umesh.test_store_selenium_testng.tests.TC002"/>
-            <class name="com.umesh.test_store_selenium_testng.tests.TC003"/>
+            <class name="com.umesh.test_store_selenium_testng.tests.TC004"/>
         </classes>
     </test>
-<!--    <test name="tc003_test">
-        <classes>
-            <class name="com.umesh.test_store_selenium_testng.tests.TC003"/>
-        </classes>
-    </test>-->
 </suite>
 
