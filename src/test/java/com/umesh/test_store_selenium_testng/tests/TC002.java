@@ -48,6 +48,8 @@ public class TC002 extends BaseTest {
         loginPage = PageFactoryManager.getLoginPage(driver);
         globalMenu = PageFactoryManager.getGlobalMenu(driver);
         globalHeader = PageFactoryManager.getGlobalHeader(driver);
+        clothesPage = PageFactoryManager.getClothesPage(driver);
+        clothesMenPage = PageFactoryManager.getClothesMenPage(driver);
         log.info("Required page objects are created");
     }
 
@@ -67,11 +69,13 @@ public class TC002 extends BaseTest {
         log.info("Logger statement tc002");
 
         // Navigate to Clothes Page
-        clothesPage = globalMenu.goToClothesPage();
+        //clothesPage = globalMenu.goToClothesPage();
+        globalMenu.goToClothesPage();
         Assert.assertTrue(clothesPage.isDisplayed(), "Clothes Page is not displayed");
 
         // Navigate to Clothes Men Page
-        clothesMenPage = clothesPage.goToClothesMenPage();
+        //clothesMenPage = clothesPage.goToClothesMenPage();
+        clothesPage.goToClothesMenPage();
         Assert.assertTrue(clothesMenPage.isDisplayed(), "Clothes Men Page is not displayed");
 
         // Select clothes on Clothes Men Page

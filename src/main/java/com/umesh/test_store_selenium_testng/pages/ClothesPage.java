@@ -68,9 +68,9 @@ public class ClothesPage extends BasePage {
      * 
      * @return the ClothesMenPage object representing the Men's Clothes section.
      */
-    public ClothesMenPage goToClothesMenPage() {
+    public void goToClothesMenPage() {
         menSection.click();
-        return clothesMenPage;
+        //return clothesMenPage;
     }
 
     /**
@@ -79,8 +79,8 @@ public class ClothesPage extends BasePage {
      * 
      * @return the ClothesWomenPage object representing the Women's Clothes section.
      */
-    public ClothesWomenPage goToClothesWomenPage() {
+    public void goToClothesWomenPage() {
         womenSection.click();
-        return clothesWomenPage;
+        //return clothesWomenPage;
     }
 }

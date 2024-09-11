@@ -63,10 +63,10 @@ public class GlobalMenu extends BasePage {
      * 
      * @return An instance of ClothesPage after clicking the menu option.
      */
-    public ClothesPage goToClothesPage() {
+    public void goToClothesPage() {
         clothesMenu.click();
         System.out.println("Inside getClothesPage");
-        return clothesPage;
+        //return clothesPage;
     }
 
     /**
