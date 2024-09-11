@@ -5,6 +5,7 @@ import com.umesh.test_store_selenium_testng.listener.TestListener;
 import com.umesh.test_store_selenium_testng.pages.*;
 import com.umesh.test_store_selenium_testng.tests.model.Credentials;
 import com.umesh.test_store_selenium_testng.tests.model.TC001_Test_Data;
+import com.umesh.test_store_selenium_testng.tests.model.TC004_Test_Data;
 import com.umesh.test_store_selenium_testng.util.Config;
 import com.umesh.test_store_selenium_testng.util.Constants;
 import com.umesh.test_store_selenium_testng.util.JsonUtil;
@@ -23,13 +24,10 @@ import org.testng.annotations.Test;
  */
 public class TC004 extends BaseTest {
     private Credentials credentials;
-    private TC001_Test_Data tc001_test_data;
-
+    private TC004_Test_Data tc004_test_data;
     private LoginPage loginPage;
-    private HomePage homePage;
     private GlobalMenu globalMenu;
     private GlobalHeader globalHeader;
-    private ClothesPage clothesPage;
 
     /**
      * Loads test data from the specified path before each method.
@@ -40,14 +38,16 @@ public class TC004 extends BaseTest {
     @Parameters({"testDataPath", "credentialsFilePath"})
     public void loadTestData(String testDataPath, String credentialsFilePath) {
         credentials = JsonUtil.getTestData(credentialsFilePath, Credentials.class);
-        tc001_test_data = JsonUtil.getTestData(testDataPath, TC001_Test_Data.class);
+        tc004_test_data = JsonUtil.getTestData(testDataPath, TC004_Test_Data.class);
         log.info("Test data loaded");
+
+        /**
+         * Create objects of the required pages
+         */
         loginPage = PageFactoryManager.getLoginPage(driver);
-        homePage = PageFactoryManager.getHomePage(driver);
         globalMenu = PageFactoryManager.getGlobalMenu(driver);
         globalHeader = PageFactoryManager.getGlobalHeader(driver);
-        clothesPage = PageFactoryManager.getClothesPage(driver);
-        log.info("credentials in before test " + credentials.email());
+        log.info("Required page objects are created");
     }
 
     /**
@@ -61,11 +61,18 @@ public class TC004 extends BaseTest {
         // Assert that the global menu is displayed
         Assert.assertTrue(globalMenu.isDisplayed());
         isLoginSuccessful = true; // Set flag indicating successful login
-        log.info("credentials in test " + credentials.email());
-        TestListener.getTest().log(Status.INFO, "This is first statement in the test case 04");
-        log.info("Logger statement");
-        clothesPage = globalMenu.goToClothesPage();
-        Assert.assertFalse(clothesPage.isDisplayed(), "Clothes Page is not displayed");
+        log.info("On the home page after successful login");
+        TestListener.getTest().log(Status.INFO, "On the home page after successful login");
+
+        // Perform search operation and validate results
+        log.info("Perform search operation and validate results");
+        TestListener.getTest().log(Status.INFO, "Perform search operation and validate results");
+        globalMenu.searchItem(tc004_test_data.searchText());
+
+        log.info("Check if intended search is displayed");
+        TestListener.getTest().log(Status.INFO, "Check if intended search is displayed");
+        Assert.assertFalse(globalMenu.searchResultDisplayed());
+        log.info("TC004 completed");
     }
 
     @AfterTest
@@ -78,7 +85,7 @@ public class TC004 extends BaseTest {
             driver.manage().deleteAllCookies(); // Clear cookies
             log.info("Cookies deleted");
         } else {
-            log.info("Skipping the sign out as login failed");
+            log.info("TC004 Skipping the sign out as login failed");
             throw new SkipException("Skipping the sign out as login failed"); // Skip sign out if login failed
         }
     }

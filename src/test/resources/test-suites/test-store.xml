@@ -17,5 +17,10 @@
             <class name="com.umesh.test_store_selenium_testng.tests.TC004"/>
         </classes>
     </test>
+        <test name="tc002_test">
+        <classes>
+            <class name="com.umesh.test_store_selenium_testng.tests.TC002"/>
+        </classes>
+    </test>
 </suite>
 

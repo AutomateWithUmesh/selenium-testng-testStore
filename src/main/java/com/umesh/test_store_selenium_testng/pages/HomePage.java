@@ -23,30 +23,5 @@ public class HomePage {
         this.driver = driver;
     }
 
-    /**
-     * Method to retrieve the GlobalHeader component.
-     * 
-     * @return An instance of the GlobalHeader class.
-     */
-    public GlobalHeader getGlobalHeader() {
-        return new GlobalHeader(this.driver);
-    }
-
-    /**
-     * Method to retrieve the GlobalFooter component.
-     * 
-     * @return An instance of the GlobalFooter class.
-     */
-    public GlobalFooter getGlobalFooter() {
-        return new GlobalFooter(this.driver);
-    }
-
-    /**
-     * Method to retrieve the GlobalMenu component.
-     * 
-     * @return An instance of the GlobalMenu class.
-     */
-    public GlobalMenu getGlobalMenu() {
-        return new GlobalMenu(this.driver);
-    }
+    //home page methods
 }

@@ -11,6 +11,7 @@ public class PageFactoryManager {
     private static ClothesMenPage clothesMenPage;
     private static ClothesWomenPage clothesWomenPage;
     private static GlobalHeader globalHeader;
+    private static GlobalFooter globalFooter;
 
     public static LoginPage getLoginPage(WebDriver driver) {
         return loginPage == null ? new LoginPage(driver) : loginPage;
@@ -38,5 +39,9 @@ public class PageFactoryManager {
 
     public static GlobalHeader getGlobalHeader(WebDriver driver) {
         return globalHeader == null ? new GlobalHeader(driver) : globalHeader;
+    }
+
+    public static GlobalFooter getGlobalFooter(WebDriver driver) {
+        return globalFooter == null ? new GlobalFooter(driver) : globalFooter;
     }
 }
